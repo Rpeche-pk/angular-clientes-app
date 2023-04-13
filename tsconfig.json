@@ -24,10 +24,12 @@
       "dom"
     ]
   },
+  //para que no nos obligue typescript a inicializar siempre los valores de las clases, constructores etc, saludos
+  //strict... =false
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictInjectionParameters": false,
+    "strictInputAccessModifiers": false,
+    "strictTemplates": false
   }
 }
