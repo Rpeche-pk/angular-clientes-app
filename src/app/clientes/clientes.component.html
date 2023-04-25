@@ -1,0 +1,49 @@
+<div class="card border-primary mb-3">
+  <div
+    class="card-header text-dark bg-secondary weight-bold"
+    style="font-size: 24px; font-weight: bold"
+  >
+    Clientes
+    <button
+      type="button"
+      (click)="setHabilitar()"
+      class="btn btn-primary my-2 p-1 float-right"
+    >
+      {{ habilitar == true ? "Ocultar" : "Mostrar" }}
+    </button>
+  </div>
+
+  <div class="card-body text-primary" *ngIf="habilitar == true">
+    <h5 class="card-title">Listados de clientes</h5>
+
+    <div class="my-2 text-left">
+      <button
+        class="btn btn-rounded btn-primary"
+        type="button"
+        [routerLink]="['/clientes/form']"
+      >
+        Crear Cliente
+      </button>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="text-dark">
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.apellido }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.createAt }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
