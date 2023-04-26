@@ -3,6 +3,7 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-form',
@@ -33,6 +34,11 @@ export class FormComponent implements OnInit {
     });
   }
 
+  //TRAYENDO EL CLIENTE CON LA PALABRA RESERVADA GET DE UN ATRIBUTO PRIVADO
+  get cli(): Cliente {
+    return this.cliente;
+  }
+
   getCliente(): Cliente {
     return this.cliente;
   }
@@ -45,6 +51,17 @@ export class FormComponent implements OnInit {
           .getClienteById(id)
           .subscribe((cliente) => (this.cliente = cliente));
       }
+    });
+  }
+
+  update(): void {
+    this.clienteService.update(this.cliente).subscribe((cliente) => {
+      this.router.navigate(['/clientes']);
+      swal(
+        'Cliente Actualizado',
+        `Cliente ${cliente.cliente.nombre} actualizado con exito!`,
+        'success'
+      );
     });
   }
 }
