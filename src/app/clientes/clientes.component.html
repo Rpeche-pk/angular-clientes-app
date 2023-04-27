@@ -25,7 +25,16 @@
         Crear Cliente
       </button>
     </div>
-    <table class="table table-striped table-bordered table-hover">
+    <div
+      *ngIf="clientes !== null && clientes.length == 0"
+      class="alert alert-info"
+    >
+      No hay registros en la base datos!!!
+    </div>
+    <table
+      class="table table-striped table-bordered table-hover"
+      *ngIf="clientes !== null && clientes.length > 0"
+    >
       <thead>
         <tr class="text-dark">
           <th>Id</th>
