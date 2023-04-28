@@ -12,6 +12,8 @@ import { HttpResponse } from '@angular/common/http';
 export class FormComponent implements OnInit {
   //private cliente: Cliente = new Cliente();
   titulo: string = 'Save or Update Client';
+  private errores: string[];
+
   constructor(
     private cliente: Cliente,
     private clienteService: ClienteService,
@@ -23,14 +25,30 @@ export class FormComponent implements OnInit {
     this.cargarCliente();
   }
 
+  get errs(): string[] {
+    return this.errores;
+  }
+
+  /**
+   * Nueva Forma de manejar un sucribe con nestx, error and complete
+   */
   create(): void {
-    this.clienteService.create(this.cliente).subscribe((cliente) => {
-      this.router.navigate(['/clientes']);
-      swal(
-        'Nuevo Cliente',
-        `Cliente ${cliente.nombre} creado con exito!`,
-        'success'
-      );
+    this.clienteService.create(this.cliente).subscribe({
+      next: (cliente) => {
+        swal(
+          'Nuevo Cliente',
+          `Cliente ${cliente.nombre} creado con exito!`,
+          'success'
+        );
+      },
+      error: (err) => {
+        this.errores = err.error.errors as string[];
+        console.error('codigo de error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      },
+      complete: () => {
+        this.router.navigate(['/clientes']);
+      },
     });
   }
 
@@ -55,13 +73,20 @@ export class FormComponent implements OnInit {
   }
 
   update(): void {
-    this.clienteService.update(this.cliente).subscribe((cliente) => {
-      this.router.navigate(['/clientes']);
-      swal(
-        'Cliente Actualizado',
-        `Cliente ${cliente.cliente.nombre} actualizado con exito!`,
-        'success'
-      );
-    });
+    this.clienteService.update(this.cliente).subscribe(
+      (cliente) => {
+        this.router.navigate(['/clientes']);
+        swal(
+          'Cliente Actualizado',
+          `Cliente ${cliente.cliente.nombre} actualizado con exito!`,
+          'success'
+        );
+      },
+      (err) => {
+        this.errores = err.error.errors as string[];
+        console.error('codigo de error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
+    );
   }
 }

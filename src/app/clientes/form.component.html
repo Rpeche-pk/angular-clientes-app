@@ -1,9 +1,13 @@
+<ul class="alert alert-danger" *ngIf="errs?.length > 0">
+  <li *ngFor="let err of errs">{{ err }}</li>
+</ul>
+
 <div class="card bg-dark text-white border-3 col-sm-10">
   <div class="card-header">
     {{ titulo }}
   </div>
   <div class="card-body">
-    <form>
+    <form #clienteForm="ngForm">
       <div class="form-group row">
         <label for="nombre" class="col-form-label col-sm-3">Nombre</label>
         <div class="col-sm-6">
@@ -12,7 +16,18 @@
             class="form-control"
             [(ngModel)]="cli.nombre"
             name="nombre"
-          />
+            #nombre="ngModel"
+          /><!-- required
+            minlength="4" al quitar esto lo demas no funciona asi el error es manejado por el backend-->
+          <div
+            class="alert alert-danger py-0"
+            *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+          >
+            <div *ngIf="nombre.errors?.['required']">Nombre requerido</div>
+            <div *ngIf="nombre.errors?.['minlength']">
+              Nombre debe tener al menos 4 caracteres
+            </div>
+          </div>
         </div>
       </div>
 
@@ -24,7 +39,19 @@
             class="form-control"
             [(ngModel)]="getCliente().apellido"
             name="apellido"
-          />
+            #apellido="ngModel"
+          /><!-- required
+            minlength="4" al quitar esto lo demas no funciona asi el error es manejado por el backend-->
+
+          <div
+            class="alert alert-danger py-0"
+            *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+          >
+            <div *ngIf="apellido.errors?.['required']">Apellido requerido</div>
+            <div *ngIf="apellido.errors?.['minlength']">
+              Apellido debe tener al menos 4 caracteres
+            </div>
+          </div>
         </div>
       </div>
 
@@ -36,8 +63,19 @@
             class="form-control"
             [(ngModel)]="getCliente().email"
             name="email"
-          />
+            #email="ngModel"
+          /><!-- required
+            email   al quitar esto lo demas no funciona asi el error es manejado por el backend-->
+
+          <div
+            class="alert alert-danger py-0"
+            *ngIf="email.invalid && (email.dirty || email.touched)"
+          >
+            <div *ngIf="email.errors?.['required']">Email requerido</div>
+            <div *ngIf="email.errors?.['email']">Email requerido</div>
+          </div>
         </div>
+
         <div class="form-group row">
           <div class="col-sm-6">
             <button
@@ -45,6 +83,7 @@
               role="button"
               (click)="create()"
               *ngIf="!cli.id; else elseBlock"
+              [disabled]="!clienteForm.form.valid"
             >
               Crear
             </button>

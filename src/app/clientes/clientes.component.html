@@ -47,13 +47,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cliente of clientes">
-          <td>{{ cliente.id }}</td>
-          <td>{{ cliente.nombre }}</td>
-          <td>{{ cliente.apellido }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>{{ cliente.createAt }}</td>
-          <td>
+        <tr class="py-2" *ngFor="let cliente of clientes">
+          <td class="py-2 px-1">{{ cliente.id }}</td>
+          <td class="py-2 px-1">{{ cliente.nombre }}</td>
+          <td class="py-2 px-1">{{ cliente.apellido | uppercase }}</td>
+          <td class="py-2 px-1">{{ cliente.email }}</td>
+          <td class="py-2 px-1">
+            {{ cliente.createAt | date : "EEEE  dd, MMMM yyyy" }}
+          </td>
+          <td class="py-2 px-1">
             <button
               class="btn btn-primary btn-sm"
               type="button"
@@ -64,7 +66,7 @@
             </button>
           </td>
 
-          <td>
+          <td class="py-2 px-1">
             <button
               class="btn btn-danger btn-sm"
               type="button"

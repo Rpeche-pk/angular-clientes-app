@@ -20,6 +20,8 @@
     "module": "ES2022",
     "useDefineForClassFields": false,
 
+    "strictNullChecks": false,
+
     
     //Si esta en true ->De lo contrario, debe inicializar todas sus variables, lo cual es un poco molesto
     "strictPropertyInitialization": false,
@@ -35,6 +37,6 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": false
   }
 }

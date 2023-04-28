@@ -11,6 +11,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clientes/form.component';
 import { FormsModule } from '@angular/forms';
+import localES from '@angular/common/locales/es-PE';
+import { registerLocaleData } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+
+registerLocaleData(localES, 'es');
 
 import { Cliente } from './clientes/cliente';
 
@@ -37,7 +42,11 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [ClienteService, Cliente],
+  providers: [
+    ClienteService,
+    Cliente,
+    [{ provide: LOCALE_ID, useValue: 'es' }],
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
