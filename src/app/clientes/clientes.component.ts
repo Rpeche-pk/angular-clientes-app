@@ -3,6 +3,8 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
+import { ActivatedRoute,Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-clientes',
@@ -10,6 +12,7 @@ import { tap } from 'rxjs/operators';
 })
 export class ClientesComponent {
   clientes: Cliente[] = [];
+  paginador: any;
 
   habilitar: boolean = true;
 
@@ -23,20 +26,48 @@ export class ClientesComponent {
       this.clienteService= clienteService;
   }*/
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.clienteService
-      .getClientes()
-      .pipe(
-        tap((clientes) => {
-          console.log('component cliente');
-          clientes.forEach((cliente) => {
-            console.log(cliente.nombre);
-          });
-        })
-      )
-      .subscribe((clientes) => (this.clientes = clientes));
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.clienteService
+        .getClientes(page)
+        .pipe(
+          tap((response: any) => {
+            console.log('component cliente');
+            (response.content as Cliente[]).forEach((cliente) => {
+              console.log(cliente.nombre);
+            });
+          })
+        )
+        .subscribe((response) => {
+          this.clientes = response.content as Cliente[];
+          this.paginador = response;
+          let totalPages: number = +this.paginador.totalPages;
+          if(totalPages < page){
+
+            swal(
+
+              'Error!',
+
+              `La página del paginador ${page} no existe.`,
+
+              'error'
+
+            );
+            this.router.navigate(['/clientes/page/0'])
+
+           }
+        });
+    });
   }
 
   delete(clientes: Cliente): void {

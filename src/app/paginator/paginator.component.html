@@ -1,0 +1,44 @@
+<ul *ngIf="paginas?.length > 0" class="pagination">
+  <li class="page-item" *ngIf="paginadors.number > 0">
+    <a
+      [routerLink]="['/clientes/page', paginadors.number - 1]"
+      class="page-link"
+      >&laquo;</a
+    >
+  </li>
+
+  <li [ngClass]="paginadors.first ? 'disabled page-item' : 'page-item'">
+    <a  class="page-link" [routerLink]="['/clientes/page', 0]">Inicio</a>
+  </li>
+
+  <li
+    *ngFor="let pagina of paginas"
+    class="page-item"
+    [ngClass]="pagina - 1 == paginadors.number ? 'active' : null"
+  >
+    <!--Para no mostrar el link cuando haces over sobre el boton paginador-->
+    <span class="page-link" *ngIf="pagina - 1 == paginadors.number">{{
+      pagina
+    }}</span>
+    <a
+      *ngIf="pagina - 1 != paginadors.number"
+      [routerLink]="['/clientes/page', pagina - 1]"
+      class="page-link"
+    >
+      {{ pagina }}
+    </a>
+  </li>
+
+  <li [ngClass]="paginadors.last? 'disabled page-item' : 'page-item'">
+    <a  class="page-link" [routerLink]="['/clientes/page', paginadors.totalPages-1]">Fin</a>
+  </li>
+
+  <li class="page-item" *ngIf="paginadors.number < paginadors.totalPages-1">
+    <a
+      [routerLink]="['/clientes/page', paginadors.number + 1]"
+      class="page-link"
+      >&raquo;</a
+    >
+  </li>
+  
+</ul>
