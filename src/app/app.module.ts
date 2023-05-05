@@ -19,6 +19,10 @@ registerLocaleData(localES, 'es');
 
 import { Cliente } from './clientes/cliente';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
@@ -38,12 +42,16 @@ const routes: Routes = [
     ClientesComponent,
     FormComponent,
     PaginatorComponent,
+    DetalleComponent,
   ],
   imports: [
     FormsModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
   ],
   providers: [
     ClienteService,
