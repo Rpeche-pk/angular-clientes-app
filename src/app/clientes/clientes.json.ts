@@ -7,6 +7,7 @@ export const clientes: Cliente[] = [
     apellido: 'Peña',
     email: 'angelap@gmail.com',
     createAt: '2017-12-21',
+    foto: '',
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const clientes: Cliente[] = [
     apellido: 'Doe',
     email: 'john.doe@gmail.com',
     createAt: '2017-11-11',
+    foto: '',
   },
   {
     id: 3,
@@ -21,6 +23,7 @@ export const clientes: Cliente[] = [
     apellido: 'Torvalds',
     email: 'linus.torvalds@gmail.com',
     createAt: '2017-11-12',
+    foto: '',
   },
   {
     id: 4,
@@ -28,6 +31,7 @@ export const clientes: Cliente[] = [
     apellido: 'Lerdorf',
     email: 'rasmus.lerdorf@gmail.com',
     createAt: '2017-11-13',
+    foto: '',
   },
   {
     id: 5,
@@ -35,6 +39,7 @@ export const clientes: Cliente[] = [
     apellido: 'Gamma',
     email: 'erich.gamma@gmail.com',
     createAt: '2017-11-14',
+    foto: '',
   },
   {
     id: 6,
@@ -42,6 +47,7 @@ export const clientes: Cliente[] = [
     apellido: 'Helm',
     email: 'richard.helm@gmail.com',
     createAt: '2017-11-15',
+    foto: '',
   },
   {
     id: 7,
@@ -49,6 +55,7 @@ export const clientes: Cliente[] = [
     apellido: 'Johnson',
     email: 'ralph.johnson@gmail.com',
     createAt: '2017-11-16',
+    foto: '',
   },
   {
     id: 8,
@@ -56,6 +63,7 @@ export const clientes: Cliente[] = [
     apellido: 'Vlissides',
     email: 'bombasto.vlissides@gmail.com',
     createAt: '2017-11-17',
+    foto: '',
   },
   {
     id: 9,
@@ -63,6 +71,7 @@ export const clientes: Cliente[] = [
     apellido: 'Gosling',
     email: 'james.gosling@gmail.com',
     createAt: '2017-11-18',
+    foto: '',
   },
   {
     id: 10,
@@ -70,6 +79,7 @@ export const clientes: Cliente[] = [
     apellido: 'Lee',
     email: 'magma.lee@gmail.com',
     createAt: '2017-11-19',
+    foto: '',
   },
   {
     id: 11,
@@ -77,5 +87,6 @@ export const clientes: Cliente[] = [
     apellido: 'Roe',
     email: 'tornado.roe@gmail.com',
     createAt: '2017-11-20',
+    foto: '',
   },
 ];

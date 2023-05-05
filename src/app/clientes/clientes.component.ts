@@ -3,8 +3,7 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import swal from 'sweetalert2';
 import { tap } from 'rxjs/operators';
-import { ActivatedRoute,Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -13,6 +12,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 export class ClientesComponent {
   clientes: Cliente[] = [];
   paginador: any;
+  clienteSeleccionado: Cliente;
 
   habilitar: boolean = true;
 
@@ -52,20 +52,16 @@ export class ClientesComponent {
           this.clientes = response.content as Cliente[];
           this.paginador = response;
           let totalPages: number = +this.paginador.totalPages;
-          if(totalPages < page){
-
+          if (totalPages < page) {
             swal(
-
               'Error!',
 
               `La página del paginador ${page} no existe.`,
 
               'error'
-
             );
-            this.router.navigate(['/clientes/page/0'])
-
-           }
+            this.router.navigate(['/clientes/page/0']);
+          }
         });
     });
   }
@@ -93,5 +89,9 @@ export class ClientesComponent {
         });
       }
     });
+  }
+
+  abrirModal(cliente: Cliente) {
+    this.clienteSeleccionado = cliente;
   }
 }

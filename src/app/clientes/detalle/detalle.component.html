@@ -1,1 +1,61 @@
-<p>detalle works!</p>
+<div class="card bg-dark text-white border-3 col-sm-10">
+  <div class="card-header">
+    {{ titulo }}
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <ul *ngIf="cliente" class="list-group text-dark mb-3">
+            <li class="list-group-item active">{{ cliente.nombre }}</li>
+            <li class="list-group-item">{{ cliente.apellido }}</li>
+            <li class="list-group-item">{{ cliente.email }}</li>
+            <li class="list-group-item">
+              {{ cliente.createAt | date : "fullDate" }}
+            </li>
+          </ul>
+          <div class="input-group mb-3">
+            <input
+              (change)="seleccionarFoto($event)"
+              type="file"
+              class="form-control"
+              id="inputGroupFile04"
+              aria-describedby="inputGroupFileAddon04"
+              aria-label="Upload"
+            />
+            <button
+              [disabled]="!fotoSeleccionada"
+              (click)="subirFoto()"
+              class="btn btn-outline-secondary text-white"
+              type="button"
+              id="inputGroupFileAddon04"
+            >
+              Subir
+            </button>
+          </div>
+          <div *ngIf="progreso > 0" class="progress" style="height: 5%">
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              attr.aria-valuenow="{{ progreso }}"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              [ngStyle]="{ width: progreso + '%' }"
+            >
+              {{ progreso }}%
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <img
+            *ngIf="cliente?.foto"
+            src="http://localhost:8080/api/uploads/img/{{ cliente.foto }}"
+            alt="{{ cliente.foto }}"
+            class="img-thumbnail rounded-1"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

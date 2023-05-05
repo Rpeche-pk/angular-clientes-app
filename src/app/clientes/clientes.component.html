@@ -1,3 +1,8 @@
+<detalle-cliente
+  *ngIf="clienteSeleccionado"
+  [cliente]="clienteSeleccionado"
+></detalle-cliente>
+
 <div class="card border-primary mb-3">
   <div
     class="card-header text-dark bg-secondary weight-bold"
@@ -48,7 +53,15 @@
       </thead>
       <tbody>
         <tr class="py-2" *ngFor="let cliente of clientes">
-          <td class="py-2 px-1">{{ cliente.id }}</td>
+          <td class="py-2 px-1">
+            <button
+              class="btn btn-success btn-sm"
+              type="button"
+              (click)="abrirModal(cliente)"
+            >
+              {{ cliente.id }}
+            </button>
+          </td>
           <td class="py-2 px-1">{{ cliente.nombre }}</td>
           <td class="py-2 px-1">{{ cliente.apellido | uppercase }}</td>
           <td class="py-2 px-1">{{ cliente.email }}</td>
