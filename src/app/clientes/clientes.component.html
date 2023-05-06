@@ -53,14 +53,24 @@
       </thead>
       <tbody>
         <tr class="py-2" *ngFor="let cliente of clientes">
-          <td class="py-2 px-1">
-            <button
-              class="btn btn-success btn-sm"
-              type="button"
+          <td class="py-1">
+            <img
               (click)="abrirModal(cliente)"
-            >
-              {{ cliente.id }}
-            </button>
+              *ngIf="cliente?.foto"
+              src="http://localhost:8080/api/uploads/img/{{ cliente.foto }}"
+              alt="{{ cliente.foto }}"
+              class="img-thumbnail rounded-1"
+              style="width: 74px; height: 74px; cursor: pointer"
+            />
+
+            <img
+              (click)="abrirModal(cliente)"
+              *ngIf="!cliente?.foto"
+              src="http://localhost:8080/images/user-default.png"
+              alt="Sin foto"
+              class="img-thumbnail rounded-1"
+              style="width: 74px; height: 74px; cursor: pointer"
+            />
           </td>
           <td class="py-2 px-1">{{ cliente.nombre }}</td>
           <td class="py-2 px-1">{{ cliente.apellido | uppercase }}</td>

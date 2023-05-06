@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Cliente } from '../cliente';
 import { ClienteService } from '../cliente.service';
-import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'detalle-cliente',
   templateUrl: './detalle.component.html',
+  styleUrls: ['./detalle.component.css'],
 })
 export class DetalleComponent implements OnInit {
   @Input() public cliente: Cliente;
@@ -17,8 +18,12 @@ export class DetalleComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private activatedRoute: ActivatedRoute
+    private modalService: ModalService
   ) {}
+
+  get getModalService(): ModalService {
+    return this.modalService;
+  }
 
   ngOnInit(): void {}
 
@@ -49,6 +54,8 @@ export class DetalleComponent implements OnInit {
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
             this.cliente = response.cliente as Cliente;
+
+            this.modalService.notificarUpload.emit(this.cliente);
             swal(
               'La foto se ha subido correctamente!',
               response.mensaje,
@@ -57,5 +64,10 @@ export class DetalleComponent implements OnInit {
           }
         });
     }
+  }
+  cerrarModal() {
+    this.modalService.cerrarModal();
+    this.fotoSeleccionada = undefined;
+    this.progreso = 0;
   }
 }
