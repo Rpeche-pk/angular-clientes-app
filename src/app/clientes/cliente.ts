@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Region } from './region';
+
 @Injectable()
 export class Cliente {
   id: number;
@@ -7,4 +9,5 @@ export class Cliente {
   createAt: string;
   email: string;
   foto: string;
+  region: Region;
 }

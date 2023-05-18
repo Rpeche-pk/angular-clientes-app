@@ -4,6 +4,7 @@ import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { HttpResponse } from '@angular/common/http';
+import { Region } from './region';
 
 @Component({
   selector: 'app-form',
@@ -13,6 +14,7 @@ export class FormComponent implements OnInit {
   //private cliente: Cliente = new Cliente();
   titulo: string = 'Save or Update Client';
   private errores: string[];
+  regiones: Region[];
 
   constructor(
     private cliente: Cliente,
@@ -70,6 +72,12 @@ export class FormComponent implements OnInit {
           .subscribe((cliente) => (this.cliente = cliente));
       }
     });
+    //Suscribiendo las regiones
+    
+    this.clienteService
+      .getRegiones()
+      .subscribe((regiones) => (this.regiones = regiones));
+      console.log(this.regiones);
   }
 
   update(): void {
@@ -88,5 +96,11 @@ export class FormComponent implements OnInit {
         console.error(err.error.errors);
       }
     );
+  }
+  compararRegion(o1: Region, o2: Region): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 == null || o2 == null ? false : o1.id === o2.id;
   }
 }

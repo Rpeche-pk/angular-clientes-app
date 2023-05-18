@@ -71,6 +71,26 @@
       </div>
 
       <div class="form-group row">
+        <label for="Region" class="col-form-label col-sm-3">Region</label>
+        <div class="col-sm-6">
+          <select
+            [compareWith]="compararRegion"
+            class="form-control"
+            [(ngModel)]="getCliente().region"
+            name="region"
+            style="width: 400px"
+          >
+            <option *ngIf="!getCliente().region" [ngValue]="undefined">
+              --- Seleccionar una región ---
+            </option>
+            <option *ngFor="let region of regiones" [ngValue]="region">
+              {{ region.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label for="email" class="col-form-label col-sm-3">Email</label>
         <div class="col-sm-6">
           <input
