@@ -91,13 +91,18 @@ export class ClientesComponent {
       cancelButtonText: 'No, cancelar',
     } as any).then((result) => {
       if (result.value) {
-        this.clienteService.delete(clientes.id).subscribe((response) => {
-          this.clientes = this.clientes.filter((cli) => cli !== clientes);
-          swal(
-            'Cliente eliminado!',
-            `Eliminado ${clientes.nombre} con éxito.`,
-            'success'
-          );
+        this.clienteService.delete(clientes.id).subscribe({
+          next: (response) => {
+            this.clientes = this.clientes.filter((cli) => cli !== clientes);
+            swal(
+              'Cliente eliminado!',
+              `Eliminado ${clientes.nombre} con éxito.`,
+              'success'
+            );
+          },
+          /*error: (err) => {
+            swal('Error!', 'Oops. No se pudo eliminar', 'error');
+          },*/
         });
       }
     });

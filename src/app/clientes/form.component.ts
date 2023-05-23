@@ -67,17 +67,22 @@ export class FormComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       let id = params['id'];
       if (id) {
-        this.clienteService
-          .getClienteById(id)
-          .subscribe((cliente) => (this.cliente = cliente));
+        this.clienteService.getClienteById(id).subscribe({
+          next: (cliente) => {
+            this.cliente = cliente;
+          },
+          /*error: (err) => {
+            swal('ERROR!!!!', 'Oops, Error al editar.', 'error');
+          },*/
+        });
       }
     });
     //Suscribiendo las regiones
-    
+
     this.clienteService
       .getRegiones()
       .subscribe((regiones) => (this.regiones = regiones));
-      console.log(this.regiones);
+    console.log(this.regiones);
   }
 
   update(): void {
