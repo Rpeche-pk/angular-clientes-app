@@ -33,7 +33,10 @@
                     {{ cliente.createAt | date : "fullDate" }}
                   </li>
                 </ul>
-                <div class="input-group mb-3">
+                <div
+                  *ngIf="authService.hasRole('ROLE_ADMIN')"
+                  class="input-group mb-3"
+                >
                   <input
                     (change)="seleccionarFoto($event)"
                     type="file"

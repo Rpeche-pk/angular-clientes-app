@@ -23,6 +23,7 @@
 
     <div class="my-2 text-left">
       <button
+        *ngIf="authService.hasRole('ROLE_ADMIN')"
         class="btn btn-rounded btn-primary"
         type="button"
         [routerLink]="['/clientes/form']"
@@ -42,18 +43,18 @@
     >
       <thead>
         <tr class="text-dark">
-          <th>Perfil</th>
+          <th *ngIf="authService.hasRole('ROLE_USER')">Perfil</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
           <th>Fecha</th>
-          <th>Editar</th>
-          <th>Eliminar</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
         </tr>
       </thead>
       <tbody>
         <tr class="py-2" *ngFor="let cliente of clientes">
-          <td class="py-1">
+          <td *ngIf="authService.hasRole('ROLE_USER')" class="py-1">
             <img
               (click)="abrirModal(cliente)"
               *ngIf="cliente?.foto"
@@ -78,7 +79,7 @@
           <td class="py-2 px-1">
             {{ cliente.createAt | date : "EEEE  dd, MMMM yyyy" }}
           </td>
-          <td class="py-2 px-1">
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')" class="py-2 px-1">
             <button
               class="btn btn-primary btn-sm"
               type="button"
@@ -89,7 +90,7 @@
             </button>
           </td>
 
-          <td class="py-2 px-1">
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')" class="py-2 px-1">
             <button
               class="btn btn-danger btn-sm"
               type="button"
