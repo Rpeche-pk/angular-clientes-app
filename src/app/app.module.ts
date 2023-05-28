@@ -10,7 +10,8 @@ import { ClienteService } from './clientes/cliente.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clientes/form.component';
-import { FormsModule } from '@angular/forms';
+//PARA FORMS REACTIVOS -> ReactiveFormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localES from '@angular/common/locales/es-PE';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
@@ -29,6 +30,13 @@ import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
 import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
+import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
+import { FacturasComponent } from './facturas/facturas.component';
+
+//ESTE ES PARA EL AUTOCOMPLETADO, SIEMPRE Y CUANDO HAYAS INSTALADO ANGULAR MATERIAL
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
@@ -49,6 +57,8 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'registrar', component: SignInComponent },
+  { path: 'facturas/:id', component: DetalleFacturaComponent },
+  { path: 'facturas/form/:clienteId', component: FacturasComponent },
 ];
 
 @NgModule({
@@ -63,6 +73,8 @@ const routes: Routes = [
     DetalleComponent,
     LoginComponent,
     SignInComponent,
+    DetalleFacturaComponent,
+    FacturasComponent,
   ],
   imports: [
     FormsModule,
@@ -72,6 +84,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [
     ClienteService,

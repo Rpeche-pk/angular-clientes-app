@@ -43,18 +43,19 @@
     >
       <thead>
         <tr class="text-dark">
-          <th *ngIf="authService.hasRole('ROLE_USER')">Perfil</th>
+          <th>Perfil</th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
           <th>Fecha</th>
+          <th>Crear Factura</th>
           <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
           <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
         </tr>
       </thead>
       <tbody>
         <tr class="py-2" *ngFor="let cliente of clientes">
-          <td *ngIf="authService.hasRole('ROLE_USER')" class="py-1">
+          <td class="py-1">
             <img
               (click)="abrirModal(cliente)"
               *ngIf="cliente?.foto"
@@ -78,6 +79,15 @@
           <td class="py-2 px-1">{{ cliente.email }}</td>
           <td class="py-2 px-1">
             {{ cliente.createAt | date : "EEEE  dd, MMMM yyyy" }}
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-success"
+              [routerLink]="['/facturas/form', cliente.id]"
+            >
+              Crear Factura
+            </button>
           </td>
           <td *ngIf="authService.hasRole('ROLE_ADMIN')" class="py-2 px-1">
             <button
