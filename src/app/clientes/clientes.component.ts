@@ -32,7 +32,7 @@ export class ClientesComponent {
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private modalService: ModalService,
+    public modalService: ModalService,
     private _authService: AuthService
   ) {}
 

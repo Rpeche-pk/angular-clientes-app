@@ -9,7 +9,7 @@
       >
     </h4>
 
-    <form>
+    <form #facturaForm="ngForm">
       <div class="form-group row" *ngIf="factura.cliente">
         <label for="cliente" class="col-sm-2 col-form-label">Cliente</label>
         <div class="col-sm-6">
@@ -33,7 +33,18 @@
             type="text"
             [(ngModel)]="factura.descripcion"
             class="form-control"
+            required
+            #descripcion="ngModel"
           />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              (descripcion.invalid && descripcion.touched) ||
+              (descripcion.invalid && facturaForm.submitted)
+            "
+          >
+            La descripciones requerida.
+          </div>
         </div>
       </div>
       <div class="form-group row">
@@ -43,7 +54,7 @@
         <div class="col-sm-6">
           <textarea
             name="observacion"
-            [(ngModel)]="factura.obervacion"
+            [(ngModel)]="factura.observacion"
             class="form-control"
           ></textarea>
         </div>
@@ -72,31 +83,67 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+          <div
+            class="alert alert-danger"
+            *ngIf="autocompleteControl.invalid && facturaForm.submitted"
+          >
+            La factura no puede no tener líneas.
+          </div>
         </div>
       </div>
 
-      <table class="table table-striped table-hover table-sm">
+      <div *ngIf="factura.items.length == 0" class="alert alert-info my-4">
+        No hay lineas asignadas para la factura. Debe agregar al menos una!
+      </div>
+      <table
+        class="table table-striped table-hover table-sm"
+        *ngIf="factura.items.length > 0"
+      >
         <thead>
           <tr>
             <th>Producto</th>
             <th>Precio</th>
             <th>Cantidad</th>
             <th>Total</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of factura.items">
             <td>{{ item.producto.nombre }}</td>
             <td>{{ item.producto.precio }}</td>
-            <td>{{ item.cantidad }}</td>
+            <td>
+              <input
+                type="number"
+                value="{{ item.cantidad }}"
+                class="form-comntrol col-sm-4"
+                (change)="actualizarCantidad(item.producto.id, $event)"
+              />
+            </td>
             <td>{{ item.calcularImporte() }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger btn-sm"
+                (click)="eliminarItemFactura(item.producto.id)"
+              >
+                x
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
+      <h5 class="float-right" *ngIf="factura.items.length > 0">
+        Gran total:
+        <span class="span badge badge-secondary">{{
+          factura.calcularGranTotal()
+        }}</span>
+      </h5>
 
       <div class="form-group row">
         <div class="col-sm-6">
           <input
+            (click)="create(facturaForm)"
             value="Crear Factura"
             type="submit"
             class="btn btn-secondary"

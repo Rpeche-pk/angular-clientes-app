@@ -57,8 +57,18 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'registrar', component: SignInComponent },
-  { path: 'facturas/:id', component: DetalleFacturaComponent },
-  { path: 'facturas/form/:clienteId', component: FacturasComponent },
+  {
+    path: 'facturas/:id',
+    component: DetalleFacturaComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: ['ROLE_USER'] },
+  },
+  {
+    path: 'facturas/form/:clienteId',
+    component: FacturasComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: ['ROLE_ADMIN'] },
+  },
 ];
 
 @NgModule({
